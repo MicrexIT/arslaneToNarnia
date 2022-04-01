@@ -1,0 +1,85 @@
+<LandingPage.css />
+
+<% main_menu_items = [
+    %{label: gettext("About us"), path: "#about-us"},
+] %>
+
+<LandingPage.header
+  current_user={assigns[:current_user]}
+  conn={@conn}
+  current_page={:landing}
+  main_menu_items={main_menu_items}
+  user_menu_items={user_menu_items(@current_user)}
+/>
+
+<LandingPage.hero image_src={Routes.static_path(@conn, "/images/landing_page/cazzeggio.jpeg")}>
+  <:title>
+    <span><%= gettext("Arslane to") %></span>
+    <span class="text-primary-600">
+      <%= gettext("Narnia") %>
+    </span>
+    <%# <span><%= gettext("A place to do good for good") %>
+  </:title>
+
+  <:action_buttons>
+    <.button
+      label={gettext("Get started")}
+      link_type="a"
+      color="primary"
+      to={Routes.user_registration_path(@conn, :new)}
+      size="lg"
+    />
+
+    <.button
+      label={gettext("Guide")}
+      link_type="a"
+      color="white"
+      to="https://docs.petal.build"
+      size="lg"
+    />
+  </:action_buttons>
+
+  <:description>
+    <%= gettext("A place to do good for good") %>
+  </:description>
+</LandingPage.hero>
+
+<LandingPage.about_us
+  title="About us"
+  description={"Arslane2Narnia is a Rome based charity that supports a wide range of projects and initiatives across the globe." <>
+  "The Foundation was created in 2020 in memory of our dear friend Mohammed Arslane Allaoua." <>
+  "All of those that have had the chance to meet Arslane know how much he cared for others - family, friends, and strangers." <>
+  "[Need to slot in the poem / speak more about Arslo] He believed beautiful things can happen when people work together towards a common goal." <>
+  "The Foundation made its first ever grant in March 2022 to a group of Arslane’s friends working with the charitable organisation Refugees Welcome to support the people of Ukraine." <>
+  " You can learn more about the initiative and the projects we are involved in here."}
+  poem_entries={["“To the people I haven’t met,",
+  "I already know that I like you.",
+  "Because beauty is not a characteristic trait.",
+  "It lies deep inside us, almost as an intrinsic factor,",
+  "Almost as the beating of heart.",
+  "",
+  "I will love you no matter your origins,",
+  "No matter your religion, no matter your temper.",
+  "I see beauty in the dark where the eyes don’t see but the heart can feel.",
+  "On the worst day of my life, I will smile to you.",
+  "",
+  "Because we are one.",
+  ]}
+  poem_signature={"Arslane"}
+  background_color="primary">
+  <.button
+    variant="solid"
+    link_type="a"
+    to="/signup"
+    label="Join us now"
+    color="primary"
+    size="lg"
+    class="mt-8"
+  />
+</LandingPage.about_us>
+
+
+
+<LandingPage.footer main_menu_items={main_menu_items} />
+
+<LandingPage.javascript />

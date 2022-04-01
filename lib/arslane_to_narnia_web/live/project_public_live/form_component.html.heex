@@ -1,0 +1,29 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="post-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+    
+    <.form_field type="text_input" form={f} field={:title} />
+    <.form_field
+      type="select"
+      options={["Recurring": "recurring", "One Off": "one_off"]}
+      form={f}
+      field={:category}
+    />
+    <.form_field type="text_input" form={f} field={:where} />
+    <.form_field type="textarea" form={f} field={:description} />
+
+    <div class="flex justify-end">
+      <.button
+        type="submit"
+        phx_disable_with="Saving..."
+        label="Save"
+      />
+    </div>
+  </.form>
+</div>
+

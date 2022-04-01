@@ -1,0 +1,57 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="post-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+    
+    <.form_field type="text_input" form={f} field={:title} />
+    <.form_field
+      type="select"
+      options={["Recurring": "recurring", "One Off": "one_off"]}
+      form={f}
+      field={:category}
+    />
+
+    <.form_field
+      type="select"
+      options={["Draft": "draft", "Ongoing": "ongoing", "Completed": "completed", "OnHold": "on_hold"]}
+      form={f}
+      field={:status}
+    />
+    <.form_field type="text_input" form={f} field={:where} />
+    <.form_field type="textarea" form={f} field={:description} />
+
+    <%= for {_ref, msg} <- @uploads.project_uploads.errors do %>
+      <p class="text-red font-bold"> <%= Phoenix.Naming.humanize(msg) %> </p>
+    <% end %>
+
+    <%= live_file_input @uploads.project_uploads %>
+
+    <%= for entry <- @uploads.project_uploads.entries do %>
+      <div class="flex flex-row items-center">
+        <div class="flex flex-col items-center">
+          <%= live_img_preview entry, height: 80 %>
+        </div>
+        <div class="flex flex-col items-center">
+            <progress max="100" value={entry.progress} class={upload_progress_css(entry)} />
+        </div>
+        <div class="flex flex-col items-center">
+           <a href="#" phx-click="cancel-entry" phx-value-ref={entry.ref} phx-target={@myself}>
+           cancel
+           </a>
+        </div>
+      </div>
+    <% end %>
+   
+    <div class="flex justify-end">
+      <.button
+        type="submit"
+        phx_disable_with="Saving..."
+        label="Save"
+      />
+    </div>
+  </.form>
+</div>

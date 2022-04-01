@@ -1,0 +1,1 @@
+call "%~dp0\arslane_to_narnia" eval ArslaneToNarnia.Release.migrate
